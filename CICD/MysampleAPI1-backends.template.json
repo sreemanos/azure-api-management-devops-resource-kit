@@ -1,0 +1,29 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "apimServiceName": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "apiVersion": "2021-08-01",
+      "type": "Microsoft.ApiManagement/service/backends",
+      "name": "[concat(parameters('apimServiceName'), '/linkedins')]",
+      "properties": {
+        "description": "Linkedins",
+        "resourceId": "https://management.azure.com/subscriptions/8da5ea31-eccb-4d99-8a1a-437ea5504220/resourceGroups/rd-poc-sreeman/providers/Microsoft.Web/sites/Linkedins",
+        "credentials": {
+          "header": {
+            "x-functions-key": [
+              "{{linkedins-key}}"
+            ]
+          }
+        },
+        "url": "https://linkedins.azurewebsites.net/api",
+        "protocol": "http"
+      }
+    }
+  ]
+}
